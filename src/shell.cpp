@@ -1,12 +1,12 @@
-#include "src/helper.h"
-#include "src/tree.h"
-#include "src/colors.h"
-#include "src/pwd.h"
-#include "src/ls.h"
-#include "src/cd.h"
-#include "src/whoami.h"
-#include "src/hostname.h"
-#include "src/cat.h"
+#include "commands/helper.h"
+#include "commands/tree.h"
+#include "commands/colors.h"
+#include "commands/pwd.h"
+#include "commands/ls.h"
+#include "commands/cd.h"
+#include "commands/whoami.h"
+#include "commands/hostname.h"
+#include "commands/cat.h"
 
 int main(int argc, char *argv[]){
     string input;
@@ -41,7 +41,13 @@ int main(int argc, char *argv[]){
             }else if(command[0] == "hostname"){
                 hostname(true);
             }else if(command[0] == "cat"){
-                cat(command[1]);
+                if(command.size() > 1)
+                    cat(command[1]);
+                else
+                    print("Please specify the file name.\n");
+            }else if(command[0] == "echo"){
+                if(command.size() > 1)
+                    print(command[1]<<endl);
             }else{
                 print("No command "<<command[0]<<" found!"<<endl);
             }
