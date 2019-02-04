@@ -2,24 +2,15 @@
 #include "src/tree.h"
 #include "src/colors.h"
 #include "src/pwd.h"
-using namespace std;
-
-vector<string> tokenize(string input){
-    vector<string> command;
-    stringstream full_command(input);
-    string intermediate; 
-
-    while(getline(full_command, intermediate, ' ')) { 
-        command.push_back(intermediate); 
-    }
-    return command;
-}
+#include "src/ls.h"
+#include "src/cd.h"
 
 int main(int argc, char *argv[]){
     string input;
 
-    print("Welcome to 21st Generation Shell\n");
+    print("Welcome to 21st Century Shell\n");
     print(bold(color_red(pwd())<<color_green(">> ")));
+    string default_dir = pwd();
 
     
     while(getline(cin, input)){
@@ -27,9 +18,23 @@ int main(int argc, char *argv[]){
             break;
         }else{
             vector<string> command = tokenize(input);
+            
             if(command[0] == "tree"){
                 tree(command.size(), command);
+            }else if(command[0] == "pwd"){
+                pwd(true);
+            }else if(command[0] == "ls"){
+                if(command.size() > 1)
+                    ls(command[1]);
+                else
+                    ls(".");
+            }else if(command[0] == "cd"){
+                if(command.size() > 1)
+                    cd(command[1]);
+                else
+                    cd(default_dir);
             }
+
             print(bold(color_red(pwd())<<color_green(">> ")));
         }
     }

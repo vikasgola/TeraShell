@@ -2,7 +2,6 @@
 #define TREE_H
 
 #include "helper.h"
-using namespace std;
 
 void dfs(string path, int d, int ld = -1){
     if(d > ld && ld != -1) return;
@@ -10,7 +9,7 @@ void dfs(string path, int d, int ld = -1){
     DIR *dir = opendir(path.c_str());
     if(!dir){
         perror("Error in opening directory");
-        exit(EXIT_FAILURE);
+        return;
     }
 
     string sdepth;    
@@ -43,9 +42,8 @@ struct files {
 vector<files> bfs(string path, int d, int ld = -1){
     DIR *dir = opendir(path.c_str());
     if(!dir){
-        print(path.c_str()<<"ASdsd");
+        print(path.c_str());
         perror("Error in opening directory");
-        exit(EXIT_FAILURE);
     }
     vector<files> filelist;
 
@@ -70,9 +68,8 @@ vector<files> bfs(string path, int d, int ld = -1){
         }
         pdir = readdir(dir);
     }
-
-    return filelist;
     closedir(dir);
+    return filelist;
 }
 
 bool compare(files a, files b){
@@ -95,7 +92,9 @@ void printFileList(vector<files> all_list){
 }
 
 int tree(int argc, vector<string> argv){
-    if(argc == 3){
+    if(argc == 2){
+            dfs(argv[1], 0);        
+    }if(argc == 3){
         if(argv[2] == "--dfs"){
             dfs(argv[1], 0);
         }else if(argv[2] == "--bfs"){
