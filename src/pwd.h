@@ -1,3 +1,6 @@
+#ifndef PWD_H
+#define PWD_H
+
 #include "helper.h"
 
 string pwd(bool print=false) {
@@ -12,3 +15,5 @@ string pwd(bool print=false) {
         return NULL;
     }
 }
+
+#endif

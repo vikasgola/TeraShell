@@ -1,22 +1,20 @@
-#ifndef _HELPER_H
-#define _HELPER_H
+#ifndef HELPER_H
+#define HELPER_H
 
 #include<iostream>
 #include<algorithm>
 #include<dirent.h>
-#include <sys/types.h>
+#include<sys/types.h>
 #include<string>
 #include<vector>
 #include<regex>
 #include <unistd.h>
 #include<limits.h>
+#include<stdlib.h>
+#include<iomanip>
 using namespace std;
 
 #define print(p_input) std::cout<<p_input
-
-// commands
-#define TREE 0
-#define PWD 1
 
 
 vector<string> tokenize(string input){

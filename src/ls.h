@@ -1,5 +1,5 @@
-#ifndef _LS_H
-#define _LS_H
+#ifndef LS_H
+#define LS_H
 
 #include "helper.h"
 using namespace std;
@@ -12,21 +12,28 @@ void ls(string path){
     }
 
     dirent *pdir = readdir(dir);
-    int i = 0;
     while(pdir){
+        string temp,temp2;
         if(pdir->d_type == DT_DIR){
-            if(i%2 == 1)
-                print("*"<<(pdir->d_name)<<"*\n");
-            else
-                print("*"<<(pdir->d_name)<<"*\t\t");
+            temp = "\033[1;33m"+string(pdir->d_name)+"\033[0m";
         }else{
-            if(i%2 == 1)
-                print(pdir->d_name<<"\n");
-            else
-                print(pdir->d_name<<"\t\t");                
+            temp = string(pdir->d_name)+"\033[1;33m"+"\033[0m";
         }
+
         pdir = readdir(dir);
-        i++;
+        if(pdir){
+            if(pdir->d_type == DT_DIR){
+                temp2 = "\033[1;33m"+string(pdir->d_name)+"\033[0m";
+            }else{
+                temp2 = string(pdir->d_name)+"\033[1;33m"+"\033[0m";
+            }
+        }else{
+            print(left<<setw(40)<<temp<<endl);
+            break;
+        }
+        
+        print(left<<setw(30)<<temp<<setw(50)<<temp2<<endl);
+        pdir = readdir(dir);
     }
     closedir(dir);
 }
