@@ -12,6 +12,7 @@
 #include<limits.h>
 #include<stdlib.h>
 #include<iomanip>
+#include<fstream>
 using namespace std;
 
 #define print(p_input) std::cout<<p_input

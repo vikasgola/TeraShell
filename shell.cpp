@@ -6,6 +6,7 @@
 #include "src/cd.h"
 #include "src/whoami.h"
 #include "src/hostname.h"
+#include "src/cat.h"
 
 int main(int argc, char *argv[]){
     string input;
@@ -39,6 +40,10 @@ int main(int argc, char *argv[]){
                 whoami(true);
             }else if(command[0] == "hostname"){
                 hostname(true);
+            }else if(command[0] == "cat"){
+                cat(command[1]);
+            }else{
+                print("No command "<<command[0]<<" found!"<<endl);
             }
             print(bold(color_blue(whoami()+"@"+hostname()))<<":"<<bold(color_red(pwd())<<color_green(">> ")));
         }
