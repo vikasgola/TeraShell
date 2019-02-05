@@ -14,10 +14,16 @@
 #include<iomanip>
 #include<fstream>
 #include<ctime>
+#include <sys/stat.h>
+#include <sys/wait.h>
+#include<algorithm>
 using namespace std;
 
 #define print(p_input) std::cout<<p_input
 
+
+extern vector<string> PATH;
+extern vector<pair<int, string>> COMMANDS;
 
 vector<string> tokenize(string input){
     vector<string> command;
@@ -38,5 +44,11 @@ vector<string> tokenize(string input){
     }
     return command;
 }
+
+struct files {
+    string filename;
+    int depth;
+    bool isDir;
+};
 
 #endif

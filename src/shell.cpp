@@ -11,6 +11,39 @@
 #include "commands/touch.h"
 #include "commands/cp.h"
 #include "commands/mv.h"
+#include "commands/run.h"
+
+
+vector<string> PATH;
+vector<pair<int, string>> COMMANDS;
+
+void readConfig(){
+    ifstream pathfile("config/path.txt");
+    if(!pathfile.is_open()){
+        perror("Error in opening config file.");
+        exit(EXIT_FAILURE);
+    }
+
+    string location;
+    while(getline(pathfile, location)){
+        if(location.substr(0,2) == "./" )
+            location = pwd() + location.substr(1);
+        if(location[0] != '.' && location[0] != '/')
+            location = pwd()+ "/" + location;
+
+        PATH.push_back(location);
+        vector<files> fileslist = bfs(location, 0, 1);
+        
+        pair<int, string> temp;
+        for(auto a: fileslist){
+            if(!a.isDir){
+                temp.first = PATH.size()-1;
+                temp.second = a.filename;
+                COMMANDS.push_back(temp);
+            }
+        }
+    }
+}
 
 int main(int argc, char *argv[]){
     string input;
@@ -19,7 +52,8 @@ int main(int argc, char *argv[]){
     print(bold(color_blue(whoami()+"@"+hostname()))<<":"<<bold(color_red(pwd())<<color_green(">> ")));
     string default_dir = pwd();
 
-    
+    readConfig();
+
     while(getline(cin, input)){
         if(input == "exit"){
             break;
@@ -68,6 +102,16 @@ int main(int argc, char *argv[]){
                     remove(command[1].c_str());
             }else if(command[0] == "clear"){
                 system("clear");
+            }else if(command[0] == "rmdir"){
+                if(command.size() > 1)
+                    rmdir(command[1].c_str());
+            }else if(command[0] == "mkdir"){
+                if(command.size() > 1)
+                    if (mkdir(command[1].c_str(), 0777) == -1)
+                        perror("Error in creating dir.");
+            }else if(command[0] == "run"){
+                if(command.size() > 1)
+                    run(command);
             }else{
                 print("No command "<<command[0]<<" found!"<<endl);
             }

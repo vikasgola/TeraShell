@@ -33,12 +33,6 @@ void dfs(string path, int d, int ld = -1){
     closedir(dir);
 }
 
-struct files {
-    string filename;
-    int depth;
-    bool isDir;
-};
-
 vector<files> bfs(string path, int d, int ld = -1){
     DIR *dir = opendir(path.c_str());
     if(!dir){
