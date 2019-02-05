@@ -13,6 +13,7 @@
 #include<stdlib.h>
 #include<iomanip>
 #include<fstream>
+#include<ctime>
 using namespace std;
 
 #define print(p_input) std::cout<<p_input

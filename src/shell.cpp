@@ -7,6 +7,10 @@
 #include "commands/whoami.h"
 #include "commands/hostname.h"
 #include "commands/cat.h"
+#include "commands/date.h"
+#include "commands/touch.h"
+#include "commands/cp.h"
+#include "commands/mv.h"
 
 int main(int argc, char *argv[]){
     string input;
@@ -48,6 +52,22 @@ int main(int argc, char *argv[]){
             }else if(command[0] == "echo"){
                 if(command.size() > 1)
                     print(command[1]<<endl);
+            }else if(command[0] == "date"){
+                date();
+            }else if(command[0] == "touch"){
+                if(command.size() > 1)
+                    touch(command[1]);
+            }else if(command[0] == "cp"){
+                if(command.size() > 2)
+                    cp(command[1],command[2]);
+            }else if(command[0] == "mv"){
+                if(command.size() > 2)
+                    mv(command[1],command[2]);
+            }else if(command[0] == "rm"){
+                if(command.size() > 1)
+                    remove(command[1].c_str());
+            }else if(command[0] == "clear"){
+                system("clear");
             }else{
                 print("No command "<<command[0]<<" found!"<<endl);
             }

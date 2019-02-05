@@ -9,6 +9,7 @@ void cat(string filename){
     if (f.is_open())
         print(f.rdbuf());
     print("\n");
+    f.close();
 }
 
 #endif
