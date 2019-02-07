@@ -33,9 +33,9 @@ void run(vector<string> arg){
             char *argv[] = {NULL};
             execvp(arg[1].c_str(), argv);
         }
-        exit(EXIT_SUCCESS);
+        // exit(EXIT_SUCCESS);
     }else{
-        waitpid(cpid,0,0);
+        wait(0);
     }
 }
 

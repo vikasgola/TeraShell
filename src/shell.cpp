@@ -20,8 +20,9 @@ vector<pair<int, string>> COMMANDS;
 void readConfig(){
     ifstream pathfile("config/path.txt");
     if(!pathfile.is_open()){
-        perror("Error in opening config file.");
-        exit(EXIT_FAILURE);
+        print("config file not found.\n");
+        // perror("Error in opening config file.");
+        // exit(EXIT_FAILURE);
     }
 
     string location;
